@@ -1,5 +1,7 @@
 # CMS Proof of Concept (PoC) – Contentful + HTML/JS
 
+Live demo: https://kobe1628.github.io/cms-poc/ 
+
 This project is a **Proof of Concept (PoC)** demonstrating integration of a **headless CMS** (Contentful) with a simple frontend application.  
 It shows how content managed in Contentful can be fetched via API and displayed on multiple channels.
 
