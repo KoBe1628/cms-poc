@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CMS PoC – Contentful Demo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>CMS PoC – Contentful Demo</h1>
+    <div id="content"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <script>
+      const client = contentful.createClient({
+        space: "osouiuvyysdi",
+        accessToken: "bZwrtZ3I8MqIAAvVP0CA8bJtHevPZQbyTCkofH4Yw7Q",
+      });
+
+      client.getEntries({ content_type: "blogPost" }).then((entries) => {
+        const container = document.getElementById("content");
+        entries.items.forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "card";
+
+          // Some fields may be undefined if not filled in Contentful
+          const title = item.fields.title || "Untitled";
+          const body =
+            item.fields.body?.content?.[0]?.content?.[0]?.value ||
+            "No text available";
+          const image = item.fields.image
+            ? item.fields.image.fields.file.url
+            : null;
+
+          div.innerHTML = `
+            ${image ? `<img src="https:${image}" alt="${title}">` : ""}
+            <h2>${title}</h2>
+            <p>${body}</p>
+          `;
+          container.appendChild(div);
+        });
+      });
+    </script>
+  </body>
+</html>
